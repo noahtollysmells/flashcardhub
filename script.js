@@ -181,6 +181,11 @@ if (zenBtn) {
 }
 
 // ----------------------
-// Custom Flashcards Section (optional)
-// ----------------------
-// Add your "create your own flashcards" logic here if needed.
+const closeCreateBtn = document.getElementById("closeCreateBtn");
+const createSection = document.getElementById("createSection");
+
+closeCreateBtn.addEventListener("click", () => {
+  createSection.classList.add("hidden");
+});
+
+
