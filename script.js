@@ -9,6 +9,7 @@ const zenBtn = document.getElementById("zenBtn");
 let flashcards = [];
 let currentIndex = 0;
 let score = 0;
+let incorrectCards = [];
 
 // ----------------------
 // CSV Upload & Parsing
@@ -23,16 +24,17 @@ function handleFile(event) {
   reader.onload = function (e) {
     const text = e.target.result;
     flashcards = parseCSV(text)
-      .slice(1) // Skip header row
+      .slice(1)
       .map(([q, a]) => ({ question: q, answer: a }));
     currentIndex = 0;
     score = 0;
+    incorrectCards = [];
     showFlashcard();
   };
   reader.readAsText(file);
 }
 
-// CSV parser that handles quotes and commas inside them
+// CSV parser that handles quotes and commas
 function parseCSV(text) {
   const rows = [];
   let currentRow = [];
@@ -125,14 +127,14 @@ function showFlashcard() {
     showFlashcard();
   });
 
-  // Wrong button → remove card
+  // Wrong button → remove card and track
   back.querySelector(".wrong-btn").addEventListener("click", (e) => {
     e.stopPropagation();
-    flashcards.splice(currentIndex, 1);
+    incorrectCards.push(flashcards.splice(currentIndex, 1)[0]);
     showFlashcard();
   });
 
-  // Correct button → remove card + increase score
+  // Correct button → remove card and increment score
   back.querySelector(".correct-btn").addEventListener("click", (e) => {
     e.stopPropagation();
     score++;
@@ -142,15 +144,31 @@ function showFlashcard() {
 }
 
 // ----------------------
-// Show Result Screen
+// Result Screen
 // ----------------------
 function showResult() {
   flashcardContainer.innerHTML = `
     <div class="result-screen">
       <h2>${score > 0 ? "🎉 Test Completed!" : "❌ Test Completed"}</h2>
       <p>Your Score: ${score}</p>
+      ${
+        incorrectCards.length > 0
+          ? `<button id="repeatIncorrectBtn">🔁 Repeat Incorrect Questions</button>`
+          : ""
+      }
     </div>
   `;
+
+  const repeatBtn = document.getElementById("repeatIncorrectBtn");
+  if (repeatBtn) {
+    repeatBtn.addEventListener("click", () => {
+      flashcards = [...incorrectCards];
+      incorrectCards = [];
+      currentIndex = 0;
+      score = 0;
+      showFlashcard();
+    });
+  }
 }
 
 // ----------------------
@@ -161,3 +179,8 @@ if (zenBtn) {
     document.body.classList.toggle("zen-mode");
   });
 }
+
+// ----------------------
+// Custom Flashcards Section (optional)
+// ----------------------
+// Add your "create your own flashcards" logic here if needed.
