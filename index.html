@@ -7,26 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flashcard Study</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* Smooth font rendering */
-    body, button {
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    a.download-btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background: #3a3a3a;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    a.download-btn:hover {
-      background: #555;
-    }
-  </style>
 </head>
 <body>
   <header>
@@ -42,22 +22,20 @@
   </header>
 
   <!-- Section for manually creating flashcards -->
- <section id="createSection" class="hidden">
-  <button id="closeCreateBtn" class="close-btn">✖</button>
-  <h2>Create Flashcards</h2>
-  <div id="newFlashcardsContainer"></div>
-  <input type="text" id="newQuestion" placeholder="Question">
-  <input type="text" id="newAnswer" placeholder="Answer">
-  <button id="addFlashcardBtn">Add Flashcard</button>
-  <button id="startCustomBtn">Start Study Mode</button>
-</section>
+  <section id="createSection" class="hidden">
+    <h2>Create Flashcards</h2>
+    <div id="newFlashcardsContainer"></div>
+    <input type="text" id="newQuestion" placeholder="Question">
+    <input type="text" id="newAnswer" placeholder="Answer">
+    <button id="addFlashcardBtn">Add Flashcard</button>
+    <button id="startCustomBtn">Start Study Mode</button>
+  </section>
 
   <main id="flashcardContainer">
     <!-- Flashcards will appear here dynamically -->
   </main>
 
-  <footer style="text-align:center; padding:1rem; font-size:0.9rem; color:#aaa;">
-    2025 © FlashcardHub <br>
+  <footer>
     Developed for Year 11 Revision 2025, Designed and Created by Noah Tolly <br>
     <a href="mailto:noah.tolly@icloud.com" class="contact-btn">📧 Contact</a>
   </footer>
@@ -65,4 +43,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
