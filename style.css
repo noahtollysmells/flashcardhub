@@ -37,12 +37,12 @@ footer {
   color: #aaa;
 }
 
-/* Zen Mode hides everything except flashcards */
+/* Zen Mode hides all UI except flashcards */
 body.zen-mode header,
 body.zen-mode footer,
 body.zen-mode #createSection,
 body.zen-mode a.download-btn,
-body.zen-mode #zenBtn {
+body.zen-mode #createBtn {
   display: none !important;
 }
 
@@ -53,6 +53,7 @@ body.zen-mode #flashcardContainer {
   align-items: center;
   width: 100%;
 }
+
 
 /* Flashcards */
 .big-flashcard {
@@ -167,3 +168,4 @@ a.download-btn:hover {
   background-color: #333;
   color: #ffcc00;
 }
+
