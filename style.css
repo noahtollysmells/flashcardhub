@@ -1,27 +1,28 @@
 /* General */
-body {
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   font-family: "Segoe UI", sans-serif;
   background: #121212;
   color: #fff;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 header {
   text-align: center;
-  padding: 2rem;
+  padding: 1.5rem;
+  flex-shrink: 0;
 }
 
 h1 {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 input[type="file"],
 button {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   background: #1e1e1e;
   border: 1px solid #444;
   padding: 0.5rem 1rem;
@@ -30,23 +31,24 @@ button {
   color: #ddd;
 }
 
-/* Flashcard container */
+/* Flashcard container fills remaining space */
 #flashcardContainer {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 800px;
-  min-height: 400px;
-  padding: 2rem;
+  padding: 1rem;
+  overflow: hidden; /* prevents scrolling */
 }
 
 /* Big study mode flashcards */
 .big-flashcard {
   perspective: 1000px;
   cursor: pointer;
-  width: 400px;
-  height: 250px;
+  width: 90%;
+  max-width: 500px;
+  height: 70%;
 }
 
 .flashcard-inner {
@@ -71,23 +73,19 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   padding: 1rem;
   backface-visibility: hidden;
   text-align: center;
-  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem); /* auto-resize for small screens */
   line-height: 1.4;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  flex-direction: column;
 }
 
 .flashcard-back {
   background: #3a3a3a;
   transform: rotateY(180deg);
-}
-
-button {
-  margin-top: 0.5rem;
 }
 
 /* Answer buttons */
@@ -96,6 +94,10 @@ button {
   justify-content: space-around;
   width: 100%;
   margin-top: 1rem;
+}
+
+button {
+  margin-top: 0.5rem;
 }
 
 /* Create your own flashcards section */
@@ -132,10 +134,22 @@ button {
   color: #fff;
 }
 
+/* Footer always visible */
+footer {
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #aaa;
+  background: #1f1f1f;
+  padding: 0.8rem;
+}
+
 /* Result screen */
 .result-screen {
   text-align: center;
 }
+
+/* Contact button */
 .contact-btn {
   display: inline-block;
   margin-top: 0.5rem;
@@ -153,4 +167,3 @@ button {
   background-color: #333;
   color: #ffcc00;
 }
-
