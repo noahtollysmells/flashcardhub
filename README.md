@@ -6,7 +6,6 @@ FlashcardHub is a web-based study tool designed to help students revise efficien
 
 - Upload CSV/Excel flashcards or create your own in the browser.
 - Interactive flashcards with "correct" and "wrong" buttons.
-- Automatically tracks incorrect answers and lets you retry them.
 - Mobile-friendly and responsive design.
 - Lightweight and easy to use.
 
