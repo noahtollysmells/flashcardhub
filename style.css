@@ -136,3 +136,21 @@ button {
 .result-screen {
   text-align: center;
 }
+.contact-btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  background-color: #1f1f1f;
+  color: #fff;
+  border-radius: 6px;
+  border: 1px solid #444;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+
+.contact-btn:hover {
+  background-color: #333;
+  color: #ffcc00;
+}
+
