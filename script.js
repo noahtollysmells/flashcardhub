@@ -4,17 +4,11 @@
 
 const fileInput = document.getElementById("fileInput");
 const flashcardContainer = document.getElementById("flashcardContainer");
-const zenBtn = document.getElementById("zenBtn");
-const createBtn = document.getElementById("createBtn");
-const createSection = document.getElementById("createSection");
-const addFlashcardBtn = document.getElementById("addFlashcardBtn");
-const startCustomBtn = document.getElementById("startCustomBtn");
 
 let flashcards = [];
 let currentIndex = 0;
 let score = 0;
 let incorrectCards = [];
-let customCards = [];
 
 // ----------------------
 // CSV Upload & Parsing
@@ -39,7 +33,7 @@ function handleFile(event) {
   reader.readAsText(file);
 }
 
-// CSV parser
+// CSV parser that handles quotes and commas
 function parseCSV(text) {
   const rows = [];
   let currentRow = [];
@@ -125,21 +119,21 @@ function showFlashcard() {
     card.classList.toggle("flipped");
   });
 
-  // Skip button → move card to end
+  // Skip button → move card to end of queue
   front.querySelector(".skip-btn").addEventListener("click", (e) => {
     e.stopPropagation();
     flashcards.push(flashcards.splice(currentIndex, 1)[0]);
     showFlashcard();
   });
 
-  // Wrong button → track
+  // Wrong button → remove card and track
   back.querySelector(".wrong-btn").addEventListener("click", (e) => {
     e.stopPropagation();
     incorrectCards.push(flashcards.splice(currentIndex, 1)[0]);
     showFlashcard();
   });
 
-  // Correct button → score++
+  // Correct button → remove card and increment score
   back.querySelector(".correct-btn").addEventListener("click", (e) => {
     e.stopPropagation();
     score++;
@@ -167,53 +161,14 @@ function showResult() {
   const repeatBtn = document.getElementById("repeatIncorrectBtn");
   if (repeatBtn) {
     repeatBtn.addEventListener("click", () => {
+      // Only keep incorrect cards and reset state
       flashcards = [...incorrectCards];
       incorrectCards = [];
       currentIndex = 0;
       score = 0;
+      
+      // Show only the incorrect cards
       showFlashcard();
     });
   }
 }
-
-// ----------------------
-// Zen Mode Toggle
-// ----------------------
-const zenBtn = document.getElementById("zenBtn");
-
-zenBtn.addEventListener("click", () => {
-  document.body.classList.toggle("zen-mode");
-});
-
-
-// ----------------------
-// Create Flashcards
-// ----------------------
-createBtn.addEventListener("click", () => {
-  createSection.classList.remove("hidden");
-});
-
-addFlashcardBtn.addEventListener("click", () => {
-  const question = document.getElementById("newQuestion").value;
-  const answer = document.getElementById("newAnswer").value;
-  if (!question || !answer) return;
-  customCards.push({ question, answer });
-  document.getElementById("newQuestion").value = "";
-  document.getElementById("newAnswer").value = "";
-  showFlashcardCustom();
-});
-
-startCustomBtn.addEventListener("click", () => {
-  flashcards = [...customCards];
-  customCards = [];
-  currentIndex = 0;
-  score = 0;
-  incorrectCards = [];
-  createSection.classList.add("hidden");
-  showFlashcard();
-});
-
-function showFlashcardCustom() {
-  // optional: show preview of custom cards if needed
-}
-
