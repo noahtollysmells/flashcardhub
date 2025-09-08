@@ -42,14 +42,15 @@
   </header>
 
   <!-- Section for manually creating flashcards -->
-  <section id="createSection" class="hidden">
-    <h2>Create Flashcards</h2>
-    <div id="newFlashcardsContainer"></div>
-    <input type="text" id="newQuestion" placeholder="Question">
-    <input type="text" id="newAnswer" placeholder="Answer">
-    <button id="addFlashcardBtn">Add Flashcard</button>
-    <button id="startCustomBtn">Start Study Mode</button>
-  </section>
+ <section id="createSection" class="hidden">
+  <button id="closeCreateBtn" class="close-btn">✖</button>
+  <h2>Create Flashcards</h2>
+  <div id="newFlashcardsContainer"></div>
+  <input type="text" id="newQuestion" placeholder="Question">
+  <input type="text" id="newAnswer" placeholder="Answer">
+  <button id="addFlashcardBtn">Add Flashcard</button>
+  <button id="startCustomBtn">Start Study Mode</button>
+</section>
 
   <main id="flashcardContainer">
     <!-- Flashcards will appear here dynamically -->
@@ -64,3 +65,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
