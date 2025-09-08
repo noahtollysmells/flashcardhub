@@ -202,3 +202,9 @@ startCustomBtn.addEventListener("click", () => {
   incorrectCards = [];
   showFlashcard();
 });
+const hideMessageBtn = document.getElementById("hideMessageBtn");
+const messageBanner = document.getElementById("messageBanner");
+
+hideMessageBtn.addEventListener("click", () => {
+  messageBanner.style.display = "none";
+});
