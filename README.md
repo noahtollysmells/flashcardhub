@@ -1,21 +1,28 @@
-# 🧠 Flashcard Study App
+# FlashcardHub
 
-A modern, interactive **flashcard website** designed for Year 10–11 students to revise topics like **Maths, Computer Science, and more**. Upload CSV files or create your own flashcards and practice efficiently.
+FlashcardHub is a web-based study tool designed to help students revise efficiently. It allows users to upload or create their own flashcards and test themselves in a distraction-free environment.
 
----
+## Features
 
-## 🔹 Features
+- Upload CSV/Excel flashcards or create your own in the browser.
+- Interactive flashcards with "correct" and "wrong" buttons.
+- Automatically tracks incorrect answers and lets you retry them.
+- Mobile-friendly and responsive design.
+- Lightweight and easy to use.
 
-- **CSV Upload:** Quickly import flashcards from Excel/CSV files.
-- **Manual Creation:** Add your own custom flashcards directly in the browser.
-- **Study Mode:**  
-  - Click anywhere on a card to flip it.  
-  - Skip ⏭️, Correct ✅, Wrong ❌ buttons for testing knowledge.
-- **Responsive Design:** Works perfectly on desktop and mobile.
-- **Template Provided:** Downloadable CSV template to create your own questions and answers.
+## Usage
 
----
+1. Open the web app in your browser.
+2. Upload a CSV/Excel file of flashcards or use the in-app editor to create your own.
+3. Study using the flashcards. Mark answers as correct or incorrect.
+4. At the end of the session, optionally repeat incorrect questions to reinforce learning.
 
-## 📝 How to Use
+## CSV Template
 
-## 1. Go to : www.flashcardhub.space
+A CSV template is included in the repository to make creating flashcards easier. It has two columns: `Question` and `Answer`.
+
+## Built With
+
+- HTML5
+- CSS3
+- JavaScript (Vanilla)
