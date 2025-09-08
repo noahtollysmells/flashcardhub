@@ -156,8 +156,61 @@ footer a.contact-btn:hover { background-color: #333; color: #ffcc00; }
 
 footer span.version { display: inline-block; margin-left: 1rem; color: #888; font-size: 0.8rem; }
 
+
+/* Enhanced responsive design for mobile and desktop */
 @media (max-width: 600px) {
-  #flashcardContainer { padding: 0.5rem; }
-  .big-flashcard { height: 220px; }
-  input[type="file"], button, a.download-btn { font-size: 0.95rem; padding: 0.5rem 0.8rem; }
+  html, body {
+    font-size: 16px;
+  }
+  header, footer {
+    padding: 0.5rem 0.5rem;
+  }
+  h1 {
+    font-size: 1.3rem;
+  }
+  #flashcardContainer {
+    padding: 0.2rem;
+    max-width: 100vw;
+  }
+  .big-flashcard {
+    max-width: 98vw;
+    height: 180px;
+    margin: 0.5rem 0;
+  }
+  .flashcard-front, .flashcard-back {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+  #createSection {
+    width: 98vw;
+    max-width: 98vw;
+    padding: 0.5rem;
+    margin: 0.2rem;
+    font-size: 1rem;
+  }
+  #createSection input, #createSection button {
+    font-size: 1rem;
+    padding: 0.7rem;
+  }
+  .answer-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .correct-btn, .wrong-btn, .skip-btn {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 0.7rem 0;
+  }
+  #messageBanner {
+    max-width: 98vw;
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+}
+
+/* Improve touch targets for all buttons */
+button, .download-btn, .contact-btn {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
 }
