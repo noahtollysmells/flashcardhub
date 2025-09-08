@@ -5,17 +5,16 @@
 const fileInput = document.getElementById("fileInput");
 const flashcardContainer = document.getElementById("flashcardContainer");
 const zenBtn = document.getElementById("zenBtn");
+const createBtn = document.getElementById("createBtn");
 const createSection = document.getElementById("createSection");
-const closeCreateBtn = document.getElementById("closeCreateBtn");
-const newFlashcardsContainer = document.getElementById("newFlashcardsContainer");
-const newQuestion = document.getElementById("newQuestion");
-const newAnswer = document.getElementById("newAnswer");
 const addFlashcardBtn = document.getElementById("addFlashcardBtn");
 const startCustomBtn = document.getElementById("startCustomBtn");
 
 let flashcards = [];
+let currentIndex = 0;
 let score = 0;
 let incorrectCards = [];
+let customCards = [];
 
 // ----------------------
 // CSV Upload & Parsing
@@ -32,6 +31,7 @@ function handleFile(event) {
     flashcards = parseCSV(text)
       .slice(1)
       .map(([q, a]) => ({ question: q, answer: a }));
+    currentIndex = 0;
     score = 0;
     incorrectCards = [];
     showFlashcard();
@@ -39,6 +39,7 @@ function handleFile(event) {
   reader.readAsText(file);
 }
 
+// CSV parser
 function parseCSV(text) {
   const rows = [];
   let currentRow = [];
@@ -82,9 +83,11 @@ function parseCSV(text) {
 function showFlashcard() {
   flashcardContainer.innerHTML = "";
 
-  if (flashcards.length === 0) return showResult();
+  if (currentIndex >= flashcards.length) {
+    return showResult();
+  }
 
-  const { question, answer } = flashcards[0]; // always pick first card
+  const { question, answer } = flashcards[currentIndex];
 
   const card = document.createElement("div");
   card.classList.add("big-flashcard");
@@ -92,44 +95,55 @@ function showFlashcard() {
   const inner = document.createElement("div");
   inner.classList.add("flashcard-inner");
 
+  // Front (Question + Skip)
   const front = document.createElement("div");
   front.classList.add("flashcard-front");
-  front.innerHTML = `<p>${question}</p><button class="skip-btn">⏭️ Skip</button>`;
+  front.innerHTML = `
+    <p>${question}</p>
+    <button class="skip-btn">⏭️ Skip</button>
+  `;
 
+  // Back (Answer + Correct/Wrong)
   const back = document.createElement("div");
   back.classList.add("flashcard-back");
-  back.innerHTML = `<p>${answer}</p>
+  back.innerHTML = `
+    <p>${answer}</p>
     <div class="answer-buttons">
       <button class="wrong-btn">❌ Wrong</button>
       <button class="correct-btn">✅ Correct</button>
-    </div>`;
+    </div>
+  `;
 
   inner.appendChild(front);
   inner.appendChild(back);
   card.appendChild(inner);
   flashcardContainer.appendChild(card);
 
-  card.addEventListener("click", e => {
+  // Flip on click (anywhere except buttons)
+  card.addEventListener("click", (e) => {
     if (e.target.tagName === "BUTTON") return;
     card.classList.toggle("flipped");
   });
 
-  front.querySelector(".skip-btn").addEventListener("click", e => {
+  // Skip button → move card to end
+  front.querySelector(".skip-btn").addEventListener("click", (e) => {
     e.stopPropagation();
-    flashcards.push(flashcards.shift()); // move first card to end
+    flashcards.push(flashcards.splice(currentIndex, 1)[0]);
     showFlashcard();
   });
 
-  back.querySelector(".wrong-btn").addEventListener("click", e => {
+  // Wrong button → track
+  back.querySelector(".wrong-btn").addEventListener("click", (e) => {
     e.stopPropagation();
-    incorrectCards.push(flashcards.shift()); // remove first card and track
+    incorrectCards.push(flashcards.splice(currentIndex, 1)[0]);
     showFlashcard();
   });
 
-  back.querySelector(".correct-btn").addEventListener("click", e => {
+  // Correct button → score++
+  back.querySelector(".correct-btn").addEventListener("click", (e) => {
     e.stopPropagation();
     score++;
-    flashcards.shift(); // remove first card
+    flashcards.splice(currentIndex, 1);
     showFlashcard();
   });
 }
@@ -155,6 +169,7 @@ function showResult() {
     repeatBtn.addEventListener("click", () => {
       flashcards = [...incorrectCards];
       incorrectCards = [];
+      currentIndex = 0;
       score = 0;
       showFlashcard();
     });
@@ -164,43 +179,37 @@ function showResult() {
 // ----------------------
 // Zen Mode Toggle
 // ----------------------
-if (zenBtn) {
-  zenBtn.addEventListener("click", () => {
-    document.body.classList.toggle("zen-mode");
-  });
-}
+zenBtn.addEventListener("click", () => {
+  document.body.classList.toggle("zen-mode");
+});
 
 // ----------------------
-// Close Create Section
+// Create Flashcards
 // ----------------------
-if (closeCreateBtn) {
-  closeCreateBtn.addEventListener("click", () => {
-    createSection.classList.add("hidden");
-  });
-}
+createBtn.addEventListener("click", () => {
+  createSection.classList.remove("hidden");
+});
 
-// ----------------------
-// Create Custom Flashcards
-// ----------------------
-if (addFlashcardBtn && startCustomBtn) {
-  addFlashcardBtn.addEventListener("click", () => {
-    const q = newQuestion.value.trim();
-    const a = newAnswer.value.trim();
-    if (!q || !a) return;
-    flashcards.push({ question: q, answer: a });
+addFlashcardBtn.addEventListener("click", () => {
+  const question = document.getElementById("newQuestion").value;
+  const answer = document.getElementById("newAnswer").value;
+  if (!question || !answer) return;
+  customCards.push({ question, answer });
+  document.getElementById("newQuestion").value = "";
+  document.getElementById("newAnswer").value = "";
+  showFlashcardCustom();
+});
 
-    const item = document.createElement("div");
-    item.textContent = `Q: ${q} → A: ${a}`;
-    newFlashcardsContainer.appendChild(item);
+startCustomBtn.addEventListener("click", () => {
+  flashcards = [...customCards];
+  customCards = [];
+  currentIndex = 0;
+  score = 0;
+  incorrectCards = [];
+  createSection.classList.add("hidden");
+  showFlashcard();
+});
 
-    newQuestion.value = "";
-    newAnswer.value = "";
-  });
-
-  startCustomBtn.addEventListener("click", () => {
-    createSection.classList.add("hidden");
-    score = 0;
-    incorrectCards = [];
-    showFlashcard();
-  });
+function showFlashcardCustom() {
+  // optional: show preview of custom cards if needed
 }
