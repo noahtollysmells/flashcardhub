@@ -18,17 +18,18 @@ body {
 /* Header */
 header {
   text-align: center;
-  padding: 1rem 1rem 0.5rem 1rem; /* reduced bottom padding */
+  padding: 1rem 1rem 0.5rem 1rem;
 }
 
 h1 {
   margin-bottom: 0.5rem;
 }
 
+/* Inputs, buttons, download links */
 input[type="file"],
 button,
 a.download-btn {
-  margin-top: 0.5rem; /* smaller margin */
+  margin-top: 0.5rem;
   background: #1e1e1e;
   border: 1px solid #444;
   padding: 0.5rem 1rem;
@@ -51,7 +52,7 @@ a.download-btn:hover {
 
 /* Flashcard container */
 main, #flashcardContainer {
-  flex: 1 0 auto;
+  flex: 1 0 auto; /* allow main to shrink if needed */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,8 +66,9 @@ main, #flashcardContainer {
 .big-flashcard {
   perspective: 1000px;
   cursor: pointer;
-  width: 400px;
-  height: 250px;
+  width: 90%;
+  max-width: 400px;
+  aspect-ratio: 16/10; /* responsive height */
   margin: 0 auto;
 }
 
@@ -107,8 +109,20 @@ main, #flashcardContainer {
   transform: rotateY(180deg);
 }
 
+/* Button default styling */
 button {
   margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #3a3a3a;
+  color: #fff;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #555;
 }
 
 /* Answer buttons */
@@ -117,6 +131,7 @@ button {
   justify-content: space-around;
   width: 100%;
   margin-top: 1rem;
+  flex-wrap: wrap;
 }
 
 /* Create your own flashcards section */
@@ -145,11 +160,6 @@ button {
 }
 
 #createSection button {
-  padding: 0.5rem 1rem;
-  margin: 0.5rem;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
   background: #3a3a3a;
   color: #fff;
 }
@@ -195,4 +205,21 @@ footer {
   margin-left: 1rem;
   font-size: 0.8rem;
   color: #888;
+}
+
+/* Mobile fixes */
+@media (max-width: 500px) {
+  main, #flashcardContainer {
+    padding: 0.5rem;
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    font-size: 1rem;
+  }
+
+  .answer-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
