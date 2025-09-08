@@ -4,6 +4,13 @@
 
 const fileInput = document.getElementById("fileInput");
 const flashcardContainer = document.getElementById("flashcardContainer");
+const createBtn = document.getElementById("createBtn");
+const createSection = document.getElementById("createSection");
+const addFlashcardBtn = document.getElementById("addFlashcardBtn");
+const startCustomBtn = document.getElementById("startCustomBtn");
+const newQuestionInput = document.getElementById("newQuestion");
+const newAnswerInput = document.getElementById("newAnswer");
+const newFlashcardsContainer = document.getElementById("newFlashcardsContainer");
 
 let flashcards = [];
 let currentIndex = 0;
@@ -89,7 +96,6 @@ function showFlashcard() {
   const inner = document.createElement("div");
   inner.classList.add("flashcard-inner");
 
-  // Front (Question + Skip)
   const front = document.createElement("div");
   front.classList.add("flashcard-front");
   front.innerHTML = `
@@ -97,7 +103,6 @@ function showFlashcard() {
     <button class="skip-btn">⏭️ Skip</button>
   `;
 
-  // Back (Answer + Correct/Wrong)
   const back = document.createElement("div");
   back.classList.add("flashcard-back");
   back.innerHTML = `
@@ -113,27 +118,23 @@ function showFlashcard() {
   card.appendChild(inner);
   flashcardContainer.appendChild(card);
 
-  // Flip on click (anywhere except buttons)
   card.addEventListener("click", (e) => {
     if (e.target.tagName === "BUTTON") return;
     card.classList.toggle("flipped");
   });
 
-  // Skip button → move card to end of queue
   front.querySelector(".skip-btn").addEventListener("click", (e) => {
     e.stopPropagation();
     flashcards.push(flashcards.splice(currentIndex, 1)[0]);
     showFlashcard();
   });
 
-  // Wrong button → remove card and track
   back.querySelector(".wrong-btn").addEventListener("click", (e) => {
     e.stopPropagation();
     incorrectCards.push(flashcards.splice(currentIndex, 1)[0]);
     showFlashcard();
   });
 
-  // Correct button → remove card and increment score
   back.querySelector(".correct-btn").addEventListener("click", (e) => {
     e.stopPropagation();
     score++;
@@ -161,14 +162,43 @@ function showResult() {
   const repeatBtn = document.getElementById("repeatIncorrectBtn");
   if (repeatBtn) {
     repeatBtn.addEventListener("click", () => {
-      // Only keep incorrect cards and reset state
       flashcards = [...incorrectCards];
       incorrectCards = [];
       currentIndex = 0;
       score = 0;
-      
-      // Show only the incorrect cards
       showFlashcard();
     });
   }
 }
+
+// ----------------------
+// Create Your Own Flashcards
+// ----------------------
+createBtn.addEventListener("click", () => {
+  createSection.classList.toggle("hidden");
+});
+
+addFlashcardBtn.addEventListener("click", () => {
+  const question = newQuestionInput.value.trim();
+  const answer = newAnswerInput.value.trim();
+  if (!question || !answer) return alert("Enter both question and answer!");
+
+  const flashcard = { question, answer };
+  flashcards.push(flashcard);
+
+  const div = document.createElement("div");
+  div.textContent = `Q: ${question} | A: ${answer}`;
+  newFlashcardsContainer.appendChild(div);
+
+  newQuestionInput.value = "";
+  newAnswerInput.value = "";
+});
+
+startCustomBtn.addEventListener("click", () => {
+  if (flashcards.length === 0) return alert("Add at least one flashcard!");
+  createSection.classList.add("hidden");
+  currentIndex = 0;
+  score = 0;
+  incorrectCards = [];
+  showFlashcard();
+});
