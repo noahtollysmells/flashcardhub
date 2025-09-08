@@ -179,9 +179,12 @@ function showResult() {
 // ----------------------
 // Zen Mode Toggle
 // ----------------------
+const zenBtn = document.getElementById("zenBtn");
+
 zenBtn.addEventListener("click", () => {
   document.body.classList.toggle("zen-mode");
 });
+
 
 // ----------------------
 // Create Flashcards
@@ -213,3 +216,4 @@ startCustomBtn.addEventListener("click", () => {
 function showFlashcardCustom() {
   // optional: show preview of custom cards if needed
 }
+
