@@ -133,6 +133,27 @@ button {
   background: #3a3a3a;
   color: #fff;
 }
+/* Close button for Create Flashcards */
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #ff4c4c;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-btn:hover {
+  background: #ff0000;
+}
 
 /* Footer always visible */
 footer {
@@ -189,5 +210,6 @@ body.zen-mode .big-flashcard {
   height: auto;
   max-height: 80vh;
 }
+
 
 
