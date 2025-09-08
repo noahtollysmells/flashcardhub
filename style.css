@@ -1,3 +1,7 @@
+/* ----------------------
+   Flashcard Hub - CSS
+-----------------------*/
+
 /* General */
 body {
   font-family: "Segoe UI", sans-serif;
@@ -8,21 +12,23 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
+/* Header */
 header {
   text-align: center;
-  padding: 1.5rem;
+  padding: 1rem 1rem 0.5rem 1rem; /* reduced bottom padding */
 }
 
 h1 {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 input[type="file"],
 button,
 a.download-btn {
-  margin-top: 1rem;
+  margin-top: 0.5rem; /* smaller margin */
   background: #1e1e1e;
   border: 1px solid #444;
   padding: 0.5rem 1rem;
@@ -31,6 +37,16 @@ a.download-btn {
   color: #ddd;
   width: 90%;
   max-width: 300px;
+  display: inline-block;
+}
+
+a.download-btn {
+  text-decoration: none;
+  text-align: center;
+}
+
+a.download-btn:hover {
+  background: #555;
 }
 
 /* Flashcard container */
@@ -39,18 +55,19 @@ main, #flashcardContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   width: 100%;
   max-width: 800px;
   box-sizing: border-box;
 }
 
-/* Big study mode flashcards */
+/* Big flashcards */
 .big-flashcard {
   perspective: 1000px;
   cursor: pointer;
   width: 400px;
   height: 250px;
+  margin: 0 auto;
 }
 
 .flashcard-inner {
@@ -111,9 +128,30 @@ button {
   background: #1f1f1f;
   padding: 1rem;
   border-radius: 12px;
-  margin: 1rem;
+  margin: 1rem auto;
   width: 90%;
   max-width: 600px;
+  box-sizing: border-box;
+}
+
+#createSection input {
+  width: calc(50% - 1rem);
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #121212;
+  color: #fff;
+}
+
+#createSection button {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #3a3a3a;
+  color: #fff;
 }
 
 /* Result screen */
@@ -121,6 +159,7 @@ button {
   text-align: center;
 }
 
+/* Contact button */
 .contact-btn {
   display: inline-block;
   margin-top: 0.5rem;
@@ -139,12 +178,21 @@ button {
   color: #ffcc00;
 }
 
-/* Footer always visible */
+/* Footer */
 footer {
   flex-shrink: 0;
   text-align: center;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   font-size: 0.9rem;
   color: #aaa;
   background: #121212;
+  line-height: 1.3;
+}
+
+/* Version text */
+.version {
+  display: inline-block;
+  margin-left: 1rem;
+  font-size: 0.8rem;
+  color: #888;
 }
