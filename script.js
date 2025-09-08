@@ -172,3 +172,14 @@ document.getElementById("startCustomBtn").addEventListener("click", () => {
   document.getElementById("createSection").classList.add("hidden");
   showFlashcard();
 });
+// Existing code for flashcards...
+
+// Zen Mode toggle
+const zenBtn = document.getElementById("zenBtn");
+if (zenBtn) {
+  zenBtn.addEventListener("click", () => {
+    document.body.classList.toggle("zen-mode");
+  });
+}
+
+
