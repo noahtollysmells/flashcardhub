@@ -1,21 +1,22 @@
-/* ----------------------
-   Flashcard Hub - CSS
------------------------*/
-
-/* General */
-body {
+/* -------------------- General -------------------- */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   font-family: "Segoe UI", sans-serif;
   background: #121212;
   color: #fff;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Header */
+body {
+  flex: 1;
+}
+
+/* -------------------- Header -------------------- */
 header {
   text-align: center;
   padding: 1rem 1rem 0.5rem 1rem;
@@ -25,10 +26,8 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
-/* Inputs, buttons, download links */
 input[type="file"],
-button,
-a.download-btn {
+button {
   margin-top: 0.5rem;
   background: #1e1e1e;
   border: 1px solid #444;
@@ -36,40 +35,41 @@ a.download-btn {
   border-radius: 8px;
   cursor: pointer;
   color: #ddd;
-  width: 90%;
-  max-width: 300px;
-  display: inline-block;
 }
 
 a.download-btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #3a3a3a;
+  color: #fff;
   text-decoration: none;
-  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 a.download-btn:hover {
   background: #555;
 }
 
-/* Flashcard container */
-main, #flashcardContainer {
-  flex: 1 0 auto; /* allow main to shrink if needed */
+/* -------------------- Flashcard Container -------------------- */
+#flashcardContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5rem 1rem;
+  flex: 1;
   width: 100%;
-  max-width: 800px;
+  padding: 1rem;
   box-sizing: border-box;
+  min-height: 100vh; /* ensures full height for vertical centering */
 }
 
-/* Big flashcards */
+/* Big study mode flashcards */
 .big-flashcard {
   perspective: 1000px;
   cursor: pointer;
-  width: 90%;
-  max-width: 400px;
-  aspect-ratio: 16/10; /* responsive height */
-  margin: 0 auto;
+  width: 400px;
+  height: 250px;
 }
 
 .flashcard-inner {
@@ -109,32 +109,19 @@ main, #flashcardContainer {
   transform: rotateY(180deg);
 }
 
-/* Button default styling */
-button {
-  margin-top: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  background: #3a3a3a;
-  color: #fff;
-  transition: 0.3s;
-}
-
-button:hover {
-  background: #555;
-}
-
 /* Answer buttons */
 .answer-buttons {
   display: flex;
   justify-content: space-around;
   width: 100%;
   margin-top: 1rem;
-  flex-wrap: wrap;
 }
 
-/* Create your own flashcards section */
+button {
+  margin-top: 0.5rem;
+}
+
+/* -------------------- Create Your Own Flashcards Section -------------------- */
 .hidden {
   display: none;
 }
@@ -146,7 +133,6 @@ button:hover {
   margin: 1rem auto;
   width: 90%;
   max-width: 600px;
-  box-sizing: border-box;
 }
 
 #createSection input {
@@ -160,66 +146,66 @@ button:hover {
 }
 
 #createSection button {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
   background: #3a3a3a;
   color: #fff;
 }
 
-/* Result screen */
+/* -------------------- Result Screen -------------------- */
 .result-screen {
   text-align: center;
 }
 
-/* Contact button */
-.contact-btn {
+/* Repeat Incorrect Questions Button */
+#repeatIncorrectBtn {
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  background: #ff6b6b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#repeatIncorrectBtn:hover {
+  background: #ff3b3b;
+}
+
+/* -------------------- Footer -------------------- */
+footer {
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: #aaa;
+  background: #121212;
+}
+
+footer a.contact-btn {
   display: inline-block;
-  margin-top: 0.5rem;
+  margin-top: 0.3rem;
   padding: 0.3rem 0.8rem;
   background-color: #1f1f1f;
   color: #fff;
   border-radius: 6px;
   border: 1px solid #444;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   transition: 0.3s;
 }
 
-.contact-btn:hover {
+footer a.contact-btn:hover {
   background-color: #333;
   color: #ffcc00;
 }
 
-/* Footer */
-footer {
-  flex-shrink: 0;
-  text-align: center;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  color: #aaa;
-  background: #121212;
-  line-height: 1.3;
-}
-
-/* Version text */
-.version {
+footer .version {
   display: inline-block;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   font-size: 0.8rem;
   color: #888;
-}
-
-/* Mobile fixes */
-@media (max-width: 500px) {
-  main, #flashcardContainer {
-    padding: 0.5rem;
-  }
-
-  .flashcard-front,
-  .flashcard-back {
-    font-size: 1rem;
-  }
-
-  .answer-buttons {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
 }
