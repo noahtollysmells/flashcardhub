@@ -189,10 +189,12 @@ footer {
   color: #ffcc00;
 }
 /* Zen Mode */
+/* Zen Mode */
 body.zen-mode header,
 body.zen-mode #createSection,
-body.zen-mode footer {
-  display: none; /* Hide header, creation section, and footer */
+body.zen-mode footer,
+body.zen-mode #zenBtn {
+  display: none; /* Hide header, create section, footer, and Zen button itself */
 }
 
 body.zen-mode #flashcardContainer {
@@ -205,11 +207,12 @@ body.zen-mode #flashcardContainer {
 }
 
 body.zen-mode .big-flashcard {
-  width: 90%; /* Make flashcard larger in Zen Mode */
+  width: 90%;
   max-width: 500px;
   height: auto;
   max-height: 80vh;
 }
+
 
 
 
