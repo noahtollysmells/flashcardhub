@@ -18,6 +18,4 @@ A modern, interactive **flashcard website** designed for Year 10–11 students t
 
 ## 📝 How to Use
 
-1. **Clone or download** this repository.
-   ```bash
-   git clone https://github.com/YourUsername/flashcard-app.git
+## 1. Go to : flashcardhub.space
