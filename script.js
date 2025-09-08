@@ -1,10 +1,19 @@
-// Flashcard variables
+// ----------------------
+// Flashcard Hub Script
+// ----------------------
+
+const fileInput = document.getElementById("fileInput");
+const flashcardContainer = document.getElementById("flashcardContainer");
+const zenBtn = document.getElementById("zenBtn");
+
 let flashcards = [];
 let currentIndex = 0;
 let score = 0;
 
-// ================= CSV Upload =================
-document.getElementById("fileInput").addEventListener("change", handleFile);
+// ----------------------
+// CSV Upload & Parsing
+// ----------------------
+fileInput.addEventListener("change", handleFile);
 
 function handleFile(event) {
   const file = event.target.files[0];
@@ -13,18 +22,17 @@ function handleFile(event) {
   const reader = new FileReader();
   reader.onload = function (e) {
     const text = e.target.result;
-
-    // Parse CSV safely (handles commas inside quotes)
-    flashcards = parseCSV(text).slice(1).map(([q, a]) => ({ question: q, answer: a }));
+    flashcards = parseCSV(text)
+      .slice(1) // Skip header row
+      .map(([q, a]) => ({ question: q, answer: a }));
     currentIndex = 0;
     score = 0;
-
     showFlashcard();
   };
   reader.readAsText(file);
 }
 
-// CSV parser that handles quotes and commas
+// CSV parser that handles quotes and commas inside them
 function parseCSV(text) {
   const rows = [];
   let currentRow = [];
@@ -53,17 +61,20 @@ function parseCSV(text) {
       currentValue += char;
     }
   }
+
   if (currentValue || currentRow.length) {
     currentRow.push(currentValue.trim());
     rows.push(currentRow);
   }
+
   return rows;
 }
 
-// ================= Flashcard Display =================
+// ----------------------
+// Show Flashcard
+// ----------------------
 function showFlashcard() {
-  const container = document.getElementById("flashcardContainer");
-  container.innerHTML = "";
+  flashcardContainer.innerHTML = "";
 
   if (currentIndex >= flashcards.length) {
     return showResult();
@@ -77,7 +88,7 @@ function showFlashcard() {
   const inner = document.createElement("div");
   inner.classList.add("flashcard-inner");
 
-  // Front (Question)
+  // Front (Question + Skip)
   const front = document.createElement("div");
   front.classList.add("flashcard-front");
   front.innerHTML = `
@@ -85,7 +96,7 @@ function showFlashcard() {
     <button class="skip-btn">⏭️ Skip</button>
   `;
 
-  // Back (Answer)
+  // Back (Answer + Correct/Wrong)
   const back = document.createElement("div");
   back.classList.add("flashcard-back");
   back.innerHTML = `
@@ -99,29 +110,29 @@ function showFlashcard() {
   inner.appendChild(front);
   inner.appendChild(back);
   card.appendChild(inner);
-  container.appendChild(card);
+  flashcardContainer.appendChild(card);
 
-  // Flip on click (except buttons)
+  // Flip on click (anywhere except buttons)
   card.addEventListener("click", (e) => {
     if (e.target.tagName === "BUTTON") return;
     card.classList.toggle("flipped");
   });
 
-  // Skip button
+  // Skip button → move card to end of queue
   front.querySelector(".skip-btn").addEventListener("click", (e) => {
     e.stopPropagation();
     flashcards.push(flashcards.splice(currentIndex, 1)[0]);
     showFlashcard();
   });
 
-  // Wrong button
+  // Wrong button → remove card
   back.querySelector(".wrong-btn").addEventListener("click", (e) => {
     e.stopPropagation();
     flashcards.splice(currentIndex, 1);
     showFlashcard();
   });
 
-  // Correct button
+  // Correct button → remove card + increase score
   back.querySelector(".correct-btn").addEventListener("click", (e) => {
     e.stopPropagation();
     score++;
@@ -130,56 +141,23 @@ function showFlashcard() {
   });
 }
 
+// ----------------------
+// Show Result Screen
+// ----------------------
 function showResult() {
-  const container = document.getElementById("flashcardContainer");
-  container.innerHTML = `
+  flashcardContainer.innerHTML = `
     <div class="result-screen">
-      <h2>${score > 0 ? "🎉 Test Completed!" : "❌ Test Finished"}</h2>
+      <h2>${score > 0 ? "🎉 Test Completed!" : "❌ Test Completed"}</h2>
       <p>Your Score: ${score}</p>
     </div>
   `;
 }
 
-// ================= Manual Flashcards =================
-document.getElementById("createBtn").addEventListener("click", () => {
-  document.getElementById("createSection").classList.toggle("hidden");
-});
-
-let customFlashcards = [];
-
-document.getElementById("addFlashcardBtn").addEventListener("click", () => {
-  const question = document.getElementById("newQuestion").value.trim();
-  const answer = document.getElementById("newAnswer").value.trim();
-  if (!question || !answer) return;
-
-  customFlashcards.push({ question, answer });
-
-  const container = document.getElementById("newFlashcardsContainer");
-  const p = document.createElement("p");
-  p.textContent = `Q: ${question} | A: ${answer}`;
-  container.appendChild(p);
-
-  document.getElementById("newQuestion").value = "";
-  document.getElementById("newAnswer").value = "";
-});
-
-document.getElementById("startCustomBtn").addEventListener("click", () => {
-  if (customFlashcards.length === 0) return;
-  flashcards = [...customFlashcards];
-  currentIndex = 0;
-  score = 0;
-
-  document.getElementById("createSection").classList.add("hidden");
-  showFlashcard();
-});
-// Existing code for flashcards...
-
-// Zen Mode toggle
-const zenBtn = document.getElementById("zenBtn");
+// ----------------------
+// Zen Mode Toggle
+// ----------------------
 if (zenBtn) {
   zenBtn.addEventListener("click", () => {
     document.body.classList.toggle("zen-mode");
   });
 }
-
-
