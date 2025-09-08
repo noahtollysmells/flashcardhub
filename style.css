@@ -1,6 +1,3 @@
-/* ----------------------
-   General Styles
------------------------ */
 html, body {
   margin: 0;
   padding: 0;
@@ -13,26 +10,20 @@ html, body {
 }
 
 body {
-  justify-content: space-between; /* keeps footer visible */
+  justify-content: flex-start;
   align-items: center;
+  min-height: 100vh;
 }
 
-/* ----------------------
-   Header
------------------------ */
 header {
   text-align: center;
   padding: 1rem;
   width: 100%;
 }
 
-h1 {
-  margin-bottom: 0.5rem;
-  font-size: 1.8rem;
-}
+h1 { margin-bottom: 0.5rem; font-size: 1.8rem; }
 
-input[type="file"],
-button {
+input[type="file"], button {
   margin-top: 0.5rem;
   background: #1e1e1e;
   border: 1px solid #444;
@@ -54,13 +45,32 @@ a.download-btn {
   cursor: pointer;
 }
 
-a.download-btn:hover {
-  background: #555;
+a.download-btn:hover { background: #555; }
+
+#messageBanner {
+  background: #333;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 600px;
+  margin: 0.5rem auto;
 }
 
-/* ----------------------
-   Flashcard Container
------------------------ */
+#hideMessageBtn {
+  margin-top: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  border: none;
+  background-color: #555;
+  color: #fff;
+  cursor: pointer;
+}
+
+#hideMessageBtn:hover { background-color: #777; }
+
 #flashcardContainer {
   display: flex;
   justify-content: center;
@@ -72,31 +82,35 @@ a.download-btn:hover {
   box-sizing: border-box;
 }
 
-/* ----------------------
-   Flashcards
------------------------ */
-.big-flashcard {
-  perspective: 1000px;
-  cursor: pointer;
+#createSection.hidden { display: none; }
+
+#createSection {
+  background: #1f1f1f;
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 0.5rem;
   width: 90%;
-  max-width: 400px;
-  height: 250px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  max-height: 80vh;
+  box-sizing: border-box;
 }
 
-.flashcard-inner {
-  position: relative;
+#createSection input, #createSection button {
   width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.6s;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #121212;
+  color: #fff;
+  font-size: 1rem;
 }
 
-.big-flashcard.flipped .flashcard-inner {
-  transform: rotateY(180deg);
-}
-
-.flashcard-front,
-.flashcard-back {
+.flashcard-front, .flashcard-back {
   position: absolute;
   inset: 0;
   background: #1f1f1f;
@@ -115,98 +129,18 @@ a.download-btn:hover {
   overflow-wrap: break-word;
 }
 
-.flashcard-back {
-  background: #3a3a3a;
-  transform: rotateY(180deg);
-}
+.flashcard-back { background: #3a3a3a; transform: rotateY(180deg); }
 
-button {
-  margin-top: 0.5rem;
-}
+.big-flashcard { perspective: 1000px; cursor: pointer; width: 90%; max-width: 400px; height: 250px; position: relative; margin: 1rem; }
+.flashcard-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s; }
+.big-flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
 
-/* ----------------------
-   Answer Buttons
------------------------ */
-.answer-buttons {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  margin-top: 1rem;
-}
+.answer-buttons { display: flex; justify-content: space-around; width: 100%; margin-top: 1rem; }
+.correct-btn, .wrong-btn, .skip-btn { padding: 0.5rem 0.8rem; border-radius: 6px; border: none; cursor: pointer; background: #3a3a3a; color: #fff; font-size: 0.95rem; }
+.correct-btn:hover { background: #4CAF50; }
+.wrong-btn:hover { background: #F44336; }
+.skip-btn:hover { background: #FF9800; }
 
-.correct-btn, .wrong-btn, .skip-btn {
-  padding: 0.5rem 0.8rem;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  background: #3a3a3a;
-  color: #fff;
-  font-size: 0.95rem;
-}
-
-.correct-btn:hover {
-  background: #4CAF50;
-}
-
-.wrong-btn:hover {
-  background: #F44336;
-}
-
-.skip-btn:hover {
-  background: #FF9800;
-}
-
-/* ----------------------
-   Create Flashcards Section
------------------------ */
-#createSection {
-  background: #1f1f1f;
-  padding: 1rem;
-  border-radius: 12px;
-  margin: 0.5rem;
-  width: 90%;
-  max-width: 600px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: auto;
-  max-height: 80vh;
-  box-sizing: border-box;
-}
-
-#createSection input {
-  width: 100%;
-  padding: 0.5rem;
-  margin: 0.5rem 0;
-  border-radius: 6px;
-  border: 1px solid #444;
-  background: #121212;
-  color: #fff;
-  box-sizing: border-box;
-  font-size: 1rem;
-}
-
-#createSection button {
-  padding: 0.75rem 1rem;
-  margin: 0.5rem 0;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  background: #3a3a3a;
-  color: #fff;
-  font-size: 1rem;
-}
-
-/* ----------------------
-   Result Screen
------------------------ */
-.result-screen {
-  text-align: center;
-}
-
-/* ----------------------
-   Footer
------------------------ */
 footer {
   width: 100%;
   text-align: center;
@@ -214,44 +148,16 @@ footer {
   font-size: 0.85rem;
   color: #aaa;
   background: #121212;
-  flex-shrink: 0; /* prevents footer from shrinking on mobile */
+  flex-shrink: 0;
 }
 
-footer a.contact-btn {
-  color: #fff;
-  text-decoration: none;
-  border: 1px solid #444;
-  padding: 0.3rem 0.8rem;
-  border-radius: 6px;
-  transition: 0.3s;
-}
+footer a.contact-btn { color: #fff; text-decoration: none; border: 1px solid #444; padding: 0.3rem 0.8rem; border-radius: 6px; transition: 0.3s; }
+footer a.contact-btn:hover { background-color: #333; color: #ffcc00; }
 
-footer a.contact-btn:hover {
-  background-color: #333;
-  color: #ffcc00;
-}
+footer span.version { display: inline-block; margin-left: 1rem; color: #888; font-size: 0.8rem; }
 
-footer span.version {
-  display: inline-block;
-  margin-left: 1rem;
-  color: #888;
-  font-size: 0.8rem;
-}
-
-/* ----------------------
-   Responsive
------------------------ */
 @media (max-width: 600px) {
-  #flashcardContainer {
-    padding: 0.5rem;
-  }
-
-  .big-flashcard {
-    height: 220px;
-  }
-
-  input[type="file"], button, a.download-btn {
-    font-size: 0.95rem;
-    padding: 0.5rem 0.8rem;
-  }
+  #flashcardContainer { padding: 0.5rem; }
+  .big-flashcard { height: 220px; }
+  input[type="file"], button, a.download-btn { font-size: 0.95rem; padding: 0.5rem 0.8rem; }
 }
