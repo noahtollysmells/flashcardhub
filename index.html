@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlashCardHub</title>
+  <link rel="stylesheet" href="style.css">
+
+    <style>
+      body.light-mode {
+        background: #fff !important;
+        color: #222 !important;
+      }
+      footer.light-mode {
+        background: #fff !important;
+        color: #222 !important;
+      }
+      .light-mode, .light-mode *:not(button):not(.download-btn):not(input[type="file"]) {
+        color: #222 !important;
+      }
+      .light-mode .contact-btn {
+        color: #222 !important;
+      }
+    </style>
+</head>
+<body>
+  <!-- Top-right button group -->
+  <button id="showMessageBtn" style="position: fixed; top: 16px; left: 16px; z-index: 1000; padding: 6px 12px; font-size: 14px; border-radius: 16px; border: none; background: #ff2222; color: #fff; cursor: pointer; display: none;">Show</button>
+  <button id="modeToggle" style="position: fixed; top: 16px; right: 16px; z-index: 1000; padding: 6px 12px; font-size: 18px; border-radius: 16px; border: none; background: #222; color: #fff; cursor: pointer;">☀️</button>
+  <header>
+    <h1>FlashCardHub</h1>
+    <p>The 100% Free Revision Website Free, Forever</p>
+    <input type="file" id="fileInput" accept=".csv">
+    <button id="createBtn">Create My Own Flashcards</button>
+
+    <div id="messageBanner">
+  <p>Upload your Excel or CSV File to Create Flashcards:</p>
+  <p>Some Glitches May Occur on Mobile.</p>
+  <p>All work will be reset if the page reloads.</p>
+  <span id="countdown" style="font-weight:bold; color:#ff2222; animation: flash 0.7s infinite alternate;">5</span> seconds left
+    </div>
+
+    <a href="flashcard_template.csv" download="flashcard_template.csv" class="download-btn">
+      📥 Download Excel Template
+    </a>
+    <!-- Show Message button moved to top right, inline with mode toggle -->
+  </header>
+
+  <section id="createSection" class="hidden">
+    <h2>Create Flashcards</h2>
+    <div id="newFlashcardsContainer"></div>
+    <input type="text" id="newQuestion" placeholder="Question">
+    <input type="text" id="newAnswer" placeholder="Answer">
+    <button id="addFlashcardBtn">Add Flashcard</button>
+    <button id="startCustomBtn">Start Study Mode</button>
+  </section>
+
+  <main id="flashcardContainer">
+    <!-- Flashcards will appear here -->
+  </main>
+
+  <section id="progressTracker" style="position: fixed; bottom: 16px; right: 16px; background: rgba(34,34,34,0.9); color: #fff; padding: 8px 16px; border-radius: 12px; font-size: 15px; z-index: 1001; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+  <span id="progressText" style="display:none;">Completed: 0 / 0</span>
+  </section>
+  </main>
+
+  <footer>
+    <div>Developed for Revision 2025, Designed and Created by Noah Tolly</div>
+    <div style="margin-top:0.5rem;">
+      <a href="mailto:noah.tolly@icloud.com" class="contact-btn">📧 Contact</a>
+      <span class="version">Version 1.6.6</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Message banner 5s countdown logic
+    function showMessageBanner() {
+      const banner = document.getElementById('messageBanner');
+      const countdown = document.getElementById('countdown');
+      const showBtn = document.getElementById('showMessageBtn');
+      let seconds = 5;
+      banner.style.display = '';
+      countdown.textContent = seconds;
+      countdown.style.display = '';
+      showBtn.style.display = 'none';
+      let interval = setInterval(() => {
+        seconds--;
+        countdown.textContent = seconds;
+        if (seconds <= 0) {
+          clearInterval(interval);
+          banner.style.display = 'none';
+          showBtn.style.display = '';
+        }
+      }, 1000);
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      showMessageBanner();
+      document.getElementById('showMessageBtn').addEventListener('click', showMessageBanner);
+    });
+  </script>
+  <script>
+    // Progress tracker logic
+    function updateProgressTracker(completed, total) {
+      document.getElementById('progressText').textContent = `Completed: ${completed} / ${total}`;
+    }
+    // Example: Hook into your flashcard logic
+    // You should call updateProgressTracker(completed, total) whenever a card is answered
+    // For demonstration, we'll initialize with 0/0
+    updateProgressTracker(0, 0);
+    // If you want to update this from script.js, you can expose updateProgressTracker globally:
+    window.updateProgressTracker = updateProgressTracker;
+  </script>
+
+    <script>
+      // Mode toggle logic
+      const modeToggle = document.getElementById('modeToggle');
+      function setLightMode(on) {
+        if (on) {
+          document.body.classList.add('light-mode');
+          const footer = document.querySelector('footer');
+          if (footer) footer.classList.add('light-mode');
+          modeToggle.textContent = '🌙';
+          modeToggle.style.background = '#fff';
+          modeToggle.style.color = '#222';
+        } else {
+          document.body.classList.remove('light-mode');
+          const footer = document.querySelector('footer');
+          if (footer) footer.classList.remove('light-mode');
+          modeToggle.textContent = '☀️';
+          modeToggle.style.background = '#222';
+          modeToggle.style.color = '#fff';
+        }
+        // Ensure all text except buttons and file input is black in light mode
+        const allTextElements = document.querySelectorAll('body *:not(button):not(.download-btn):not(input[type="file"])');
+        allTextElements.forEach(el => {
+          if (on) {
+            el.style.color = '#222';
+          } else {
+            el.style.color = '';
+          }
+        });
+        // Ensure contact button text is black in light mode
+        const contactBtn = document.querySelector('.contact-btn');
+        if (contactBtn) {
+          if (on) {
+            contactBtn.style.color = '#222';
+          } else {
+            contactBtn.style.color = '';
+          }
+        }
+      }
+      let lightMode = false;
+      modeToggle.addEventListener('click', function() {
+        lightMode = !lightMode;
+        setLightMode(lightMode);
+      });
+      // Default to dark mode
+      setLightMode(false);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
