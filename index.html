@@ -5,72 +5,28 @@
   <link rel="apple-touch-icon" href="favicon.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FlashCardHub - Free Online Flashcards</title>
-  <meta name="description" content="FlashCardHub - The 100% Free Revision Website. Create and study flashcards online for free, forever.">
+  <title>FlashCardHub - Free Online Flashcards for Learning</title>
+  <meta name="description" content="FlashCardHub - The 100% Free Revision Website. Create and study flashcards online for free. No login required, forever free.">
   <link rel="stylesheet" href="style.css">
-
-    <style>
-      body.light-mode {
-        background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%) !important;
-        color: #222 !important;
-      }
-      body.light-mode header {
-        background: linear-gradient(180deg, rgba(240,240,240,0.9) 0%, transparent 100%) !important;
-        border-bottom-color: rgba(0,0,0,0.1) !important;
-      }
-      body.light-mode footer {
-        background: linear-gradient(180deg, transparent 0%, rgba(240,240,240,0.95) 50%, #f5f5f5 100%) !important;
-        color: #666 !important;
-        border-top-color: rgba(0,0,0,0.1) !important;
-      }
-      body.light-mode footer a.contact-btn {
-        border-color: #ccc !important;
-        color: #222 !important;
-      }
-      body.light-mode footer a.contact-btn:hover {
-        background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%) !important;
-        color: #fff !important;
-      }
-      body.light-mode #messageBanner {
-        background: linear-gradient(135deg, rgba(255,193,7,0.15) 0%, rgba(255,152,0,0.1) 100%) !important;
-        border-color: rgba(255,152,0,0.3) !important;
-      }
-      body.light-mode .flashcard-front, body.light-mode .flashcard-back {
-        background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%) !important;
-        color: #222 !important;
-        border-color: rgba(0,0,0,0.05) !important;
-      }
-      body.light-mode .flashcard-back {
-        background: linear-gradient(135deg, #e3f2fd 0%, #f0f4ff 100%) !important;
-      }
-      body.light-mode input[type="file"], body.light-mode button {
-        background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%) !important;
-        color: #333 !important;
-        border-color: #ddd !important;
-      }
-      body.light-mode a.download-btn {
-        color: #fff !important;
-      }
-    </style>
 </head>
 <body>
   <!-- Control Buttons -->
-  <button id="showMessageBtn" style="position: fixed; top: 16px; left: 16px; z-index: 1000; padding: 8px 14px; font-size: 13px; border-radius: 20px; border: none; background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%); color: #fff; cursor: pointer; display: none; font-weight: 600; transition: all 0.3s ease;">Show Info</button>
-  <button id="modeToggle" style="position: fixed; top: 16px; right: 16px; z-index: 1000; padding: 8px 14px; font-size: 18px; border-radius: 20px; border: 1px solid #444; background: #222; color: #fff; cursor: pointer; transition: all 0.3s ease;">☀️</button>
+  <button id="showMessageBtn" style="position: fixed; top: 16px; left: 16px; z-index: 1000; padding: 10px 16px; font-size: 13px; border-radius: 10px; border: none; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #fff; cursor: pointer; display: none; font-weight: 600; transition: all 0.3s ease;">ℹ️ Show Info</button>
+  <button id="modeToggle" style="position: fixed; top: 16px; right: 16px; z-index: 1000; padding: 10px 16px; font-size: 18px; border-radius: 10px; border: 2px solid #334155; background: transparent; color: #f1f5f9; cursor: pointer; transition: all 0.3s ease;">☀️</button>
   
   <header>
     <h1>FlashCardHub</h1>
-    <p>The 100% Free Revision Website — Free, Forever</p>
+    <p>The 100% free revision website — no login, no limits, forever free</p>
     
-    <div style="margin: 1.5rem 0;">
+    <div style="margin: 2rem 0;">
       <input type="file" id="fileInput" accept=".csv">
-      <button id="createBtn">➕ Create My Own Flashcards</button>
+      <button id="createBtn">✨ Create Custom Flashcards</button>
     </div>
 
     <div id="messageBanner">
-      <p><strong>📋 How to use:</strong> Upload your Excel or CSV File to Create Flashcards</p>
-      <p style="color: #ff9800;">⚠️ Mobile: Some glitches may occur. All work resets on page reload.</p>
-      <p>Disappears in <span id="countdown" style="font-weight: bold; color: #FF9800;">5</span> seconds</p>
+      <p><strong>📚 Getting Started:</strong></p>
+      <p>Upload a CSV file with Question | Answer columns to create flashcards instantly</p>
+      <p style="color: #f59e0b; font-size: 0.85rem;">⚠️ Mobile: Page reload will reset your progress. Disappears in <span id="countdown" style="font-weight: bold;">5</span>s</p>
     </div>
 
     <a href="flashcard_template.csv" download="flashcard_template.csv" class="download-btn">
@@ -79,27 +35,27 @@
   </header>
 
   <section id="createSection" class="hidden">
-    <h2 style="margin-top: 0;">Create Custom Flashcards</h2>
+    <h2>Create Flashcards</h2>
     <div id="newFlashcardsContainer"></div>
-    <input type="text" id="newQuestion" placeholder="Enter question...">
-    <input type="text" id="newAnswer" placeholder="Enter answer...">
+    <input type="text" id="newQuestion" placeholder="Enter your question...">
+    <input type="text" id="newAnswer" placeholder="Enter the answer...">
     <button id="addFlashcardBtn">➕ Add Flashcard</button>
-    <button id="startCustomBtn" style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); margin-top: 1rem;">▶️ Start Studying</button>
+    <button id="startCustomBtn" style="background: var(--primary); border-color: var(--primary); color: #fff; margin-top: 1.5rem;">▶️ Start Learning</button>
   </section>
 
   <main id="flashcardContainer">
     <!-- Flashcards will appear here -->
   </main>
 
-  <section id="progressTracker" style="position: fixed; bottom: 90px; right: 16px; background: linear-gradient(135deg, rgba(76,175,80,0.9) 0%, rgba(69,160,73,0.9) 100%); color: #fff; padding: 10px 16px; border-radius: 12px; font-size: 14px; z-index: 1001; box-shadow: 0 4px 12px rgba(76,175,80,0.3); border: 1px solid rgba(76,175,80,0.4); display: none;">
+  <section id="progressTracker">
     <span id="progressText">Completed: 0 / 0</span>
   </section>
 
   <footer>
-    <div>Developed for Revision 2025 | Designed & Created by Noah Tolly</div>
-    <div style="margin-top: 0.3rem; display: flex; gap: 1rem; justify-content: center; align-items: center;">
-      <a href="mailto:noah.tolly@icloud.com" class="contact-btn">📧 Contact</a>
-      <span class="version">v1.7.0</span>
+    <div>Developed for Revision 2025 | Created by Noah Tolly</div>
+    <div style="margin-top: 0.5rem; display: flex; gap: 1rem; justify-content: center; align-items: center;">
+      <a href="mailto:noah.tolly@icloud.com" class="contact-btn">✉️ Contact</a>
+      <span class="version">v1.8.0</span>
     </div>
   </footer>
 
@@ -113,7 +69,6 @@
       let seconds = 5;
       banner.style.display = '';
       countdown.textContent = seconds;
-      countdown.style.display = '';
       showBtn.style.display = 'none';
       let interval = setInterval(() => {
         seconds--;
@@ -133,7 +88,14 @@
   <script>
     // Progress tracker
     function updateProgressTracker(completed, total) {
-      document.getElementById('progressText').textContent = `Completed: ${completed} / ${total}`;
+      const tracker = document.getElementById('progressTracker');
+      const text = document.getElementById('progressText');
+      text.textContent = `Completed: ${completed} / ${total}`;
+      if (total > 0) {
+        tracker.classList.add('show');
+      } else {
+        tracker.classList.remove('show');
+      }
     }
     window.updateProgressTracker = updateProgressTracker;
   </script>
@@ -143,18 +105,10 @@
     function setLightMode(on) {
       if (on) {
         document.body.classList.add('light-mode');
-        const footer = document.querySelector('footer');
-        if (footer) footer.classList.add('light-mode');
         modeToggle.textContent = '🌙';
-        modeToggle.style.background = '#fff';
-        modeToggle.style.color = '#222';
       } else {
         document.body.classList.remove('light-mode');
-        const footer = document.querySelector('footer');
-        if (footer) footer.classList.remove('light-mode');
         modeToggle.textContent = '☀️';
-        modeToggle.style.background = '#222';
-        modeToggle.style.color = '#fff';
       }
     }
     let lightMode = false;
