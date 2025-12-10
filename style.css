@@ -75,28 +75,28 @@ input[type="file"]:hover {
 
 /* Base button style: consistent spacing, borders and accessible sizes */
 button {
-  margin: 0.5rem 0;
+  margin: 0.35rem 0;
   background: linear-gradient(135deg, #222 0%, #151515 100%);
   border: 1px solid rgba(255,255,255,0.06);
-  padding: 0.7rem 1rem;
-  border-radius: 10px;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
   cursor: pointer;
   color: var(--text-primary);
-  font-size: 1rem;
+  font-size: 0.98rem;
   transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
   font-weight: 600;
-  line-height: 1;
+  line-height: 1.15;
   -webkit-tap-highlight-color: transparent;
 }
 
 button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.12);
   border-color: var(--primary-dark);
 }
 
 button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   border-color: rgba(255,255,255,0.12);
 }
 
@@ -328,8 +328,8 @@ a.download-btn:hover {
 .correct-btn, .wrong-btn, .skip-btn {
   flex: 1 1 0;
   min-width: 0;
-  font-size: 1rem;
-  padding: 0.7rem 0.6rem;
+  font-size: 0.95rem;
+  padding: 0.55rem 0.5rem;
   box-sizing: border-box;
   margin: 0;
   border: none;
@@ -367,9 +367,9 @@ a.download-btn:hover {
 
 #repeatIncorrectBtn {
   display: inline-block;
-  margin-top: 1.25rem;
+  margin-top: 0.9rem;
   width: auto;
-  padding: 0.8rem 1.6rem;
+  padding: 0.6rem 1rem;
   align-self: center;
 }
 
@@ -502,7 +502,8 @@ footer span.version {
 
 /* Improve touch targets for all buttons */
 button, .download-btn, .contact-btn {
-  min-height: 44px;
+  /* don't force an overly large min-height; let padding control sizing */
+  min-height: auto;
   touch-action: manipulation;
   font-weight: 500;
 }
