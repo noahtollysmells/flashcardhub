@@ -123,52 +123,63 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ============ CREATE YOUR OWN ============
-  createBtn.addEventListener("click", () => { 
-    createSection.classList.toggle("hidden"); 
-  });
+  if (createBtn) {
+    createBtn.addEventListener("click", () => {
+      if (!createSection) return;
+      if (createSection.classList && typeof createSection.classList.toggle === 'function') {
+        createSection.classList.toggle("hidden");
+      } else {
+        createSection.style.display = (createSection.style.display === 'none' ? '' : 'none');
+      }
+    });
+  }
 
-  addFlashcardBtn.addEventListener("click", () => {
-    const q = newQuestionInput.value.trim(); 
-    const a = newAnswerInput.value.trim();
-    
-    if(!q || !a) {
-      alert("⚠️ Please enter both question and answer!");
-      return;
-    }
-    
-    flashcards.push({question: q, answer: a});
-    totalCards = flashcards.length;
-    
-    if (window.updateProgressTracker) window.updateProgressTracker(completedCards, totalCards);
-    
-    const div = document.createElement("div"); 
-    div.innerHTML = `<strong>Q:</strong> ${escapeHtml(q)}<br><strong>A:</strong> ${escapeHtml(a)}`;
-    newFlashcardsContainer.appendChild(div);
-    
-    newQuestionInput.value = "";
-    newAnswerInput.value = "";
-    newQuestionInput.focus();
-  });
+  if (addFlashcardBtn && newQuestionInput && newAnswerInput && newFlashcardsContainer) {
+    addFlashcardBtn.addEventListener("click", () => {
+      const q = newQuestionInput.value.trim();
+      const a = newAnswerInput.value.trim();
 
-  // Allow Enter key to add flashcard
-  newAnswerInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") addFlashcardBtn.click();
-  });
+      if (!q || !a) {
+        alert("⚠️ Please enter both question and answer!");
+        return;
+      }
 
-  startCustomBtn.addEventListener("click", () => {
-    if(flashcards.length === 0) {
-      alert("⚠️ Please add at least one flashcard first!");
-      return;
-    }
-    createSection.classList.add("hidden"); 
-    currentIndex = 0; 
-    score = 0; 
-    incorrectCards = [];
-    completedCards = 0;
-    totalCards = flashcards.length;
-    if (window.updateProgressTracker) window.updateProgressTracker(completedCards, totalCards);
-    showFlashcard();
-  });
+      flashcards.push({ question: q, answer: a });
+      totalCards = flashcards.length;
+
+      if (window.updateProgressTracker) window.updateProgressTracker(completedCards, totalCards);
+
+      const div = document.createElement("div");
+      div.innerHTML = `<strong>Q:</strong> ${escapeHtml(q)}<br><strong>A:</strong> ${escapeHtml(a)}`;
+      newFlashcardsContainer.appendChild(div);
+
+      newQuestionInput.value = "";
+      newAnswerInput.value = "";
+      newQuestionInput.focus();
+    });
+
+    // Allow Enter key to add flashcard
+    newAnswerInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") addFlashcardBtn.click();
+    });
+  }
+
+  if (startCustomBtn) {
+    startCustomBtn.addEventListener("click", () => {
+      if (flashcards.length === 0) {
+        alert("⚠️ Please add at least one flashcard first!");
+        return;
+      }
+      if (createSection && createSection.classList) createSection.classList.add("hidden");
+      currentIndex = 0;
+      score = 0;
+      incorrectCards = [];
+      completedCards = 0;
+      totalCards = flashcards.length;
+      if (window.updateProgressTracker) window.updateProgressTracker(completedCards, totalCards);
+      showFlashcard();
+    });
+  }
 
   // Helper function to escape HTML and prevent XSS
   function escapeHtml(text) {
