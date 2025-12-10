@@ -427,6 +427,59 @@ footer span.version {
   font-size: 0.75rem; 
 }
 
+/* Admin / Hacker panel trigger button */
+.admin-btn {
+  margin-left: 0.6rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--text-primary);
+  font-weight: 700;
+  cursor: pointer;
+}
+.admin-btn:hover { background: rgba(255,255,255,0.02); transform: translateY(-1px); }
+
+/* Keep the visible footer trigger hidden — require Numpad sequence to open the panel */
+.admin-btn { display: none !important; }
+
+/* Hacker Panel modal */
+#hackerPanelOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+}
+#hackerPanel {
+  width: 100%;
+  max-width: 980px;
+  max-height: 90vh;
+  overflow: auto;
+  background: linear-gradient(135deg, #0f172a 0%, #111827 100%);
+  border: 1px solid rgba(255,255,255,0.07);
+  color: var(--text-primary);
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+#hackerPanel .panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+#hackerPanel .panel-title { font-weight: 800; font-size: 1.05rem; }
+#hackerPanel .panel-close { background: transparent; border: none; color: var(--text-secondary); cursor: pointer; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 6px; }
+#hackerPanel .panel-close:hover { color: var(--text-primary); background: rgba(255,255,255,0.02); }
+#hackerPanel .panel-content { padding: 1rem 1.25rem 1.5rem 1.25rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace; font-size: 0.86rem; color: #dbeafe; }
+#hackerPanel pre { white-space: pre-wrap; word-wrap: break-word; margin: 0 0 1rem 0; }
+#hackerPanel .panel-actions { display:flex; gap:0.5rem; align-items:center; }
+#hackerPanel .panel-actions button { padding: 0.45rem 0.7rem; font-weight:700; }
+
 
 /* Enhanced responsive design for mobile and desktop */
 @media (max-width: 600px) {
