@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const fileInput = document.getElementById("fileInput");
   const flashcardContainer = document.getElementById("flashcardContainer");
   const createBtn = document.getElementById("createBtn");
   const createSection = document.getElementById("createSection");
@@ -16,57 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let totalCards = 0;
   let completedCards = 0;
 
-  // ============ CSV UPLOAD ============
-  fileInput.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    
-    fileInput.disabled = true;
-    
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        const text = e.target.result;
-        const parsed = parseCSV(text).slice(1).filter(row => row.length >= 2 && row[0].trim() && row[1].trim());
-        
-        if (parsed.length === 0) {
-          alert("❌ No valid flashcards found. Check your CSV format.");
-          fileInput.disabled = false;
-          return;
-        }
-        
-        flashcards = parsed.map(([q, a]) => ({ question: q.trim(), answer: a.trim() }));
-        totalCards = flashcards.length;
-        completedCards = 0;
-        currentIndex = 0;
-        score = 0;
-        incorrectCards = [];
-        
-        if (window.updateProgressTracker) window.updateProgressTracker(completedCards, totalCards);
-        showFlashcard();
-        fileInput.disabled = false;
-      } catch (error) {
-        alert("❌ Error parsing CSV. Please check the file format.");
-        fileInput.disabled = false;
-      }
-    };
-    reader.readAsText(file);
-  });
-
-  function parseCSV(text) {
-    const rows = [];
-    let row = [], val = "", inQuotes = false;
-    for (let i = 0; i < text.length; i++) {
-      const char = text[i];
-      if (char === '"' && text[i + 1] === '"') { val += '"'; i++; }
-      else if (char === '"') inQuotes = !inQuotes;
-      else if (char === "," && !inQuotes) { row.push(val.trim()); val = ""; }
-      else if ((char === "\n" || char === "\r") && !inQuotes) { if(val||row.length){row.push(val.trim());rows.push(row);} row=[]; val=""; }
-      else val += char;
-    }
-    if (val||row.length) row.push(val.trim()), rows.push(row);
-    return rows;
-  }
+  
 
   // ============ SHOW FLASHCARDS ============
   function showFlashcard() {
@@ -155,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <h2>${performance}</h2>
         <p>Score: ${score}/${totalCards} (${percentage}%)</p>
         ${progressBar}
-        ${incorrectCards.length > 0 ? `<button id="repeatIncorrectBtn" class="skip-btn" style="margin-top: 1.5rem; width: auto; padding: 0.8rem 2rem;">🔁 Review ${incorrectCards.length} Wrong</button>` : ""}
+        ${incorrectCards.length > 0 ? `<button id="repeatIncorrectBtn" class="skip-btn">🔁 Review ${incorrectCards.length} Wrong</button>` : ""}
       </div>`;
     
     const progressTracker = document.getElementById('progressTracker');
