@@ -59,38 +59,41 @@
   <script>
     // Message banner countdown
     function showMessageBanner() {
-      const banner = document.getElementById('messageBanner');
-      const countdown = document.getElementById('countdown');
-      const showBtn = document.getElementById('showMessageBtn');
-      let seconds = 5;
-      banner.style.display = '';
-      countdown.textContent = seconds;
-      showBtn.style.display = 'none';
-      let interval = setInterval(() => {
+      var banner = document.getElementById('messageBanner');
+      var countdown = document.getElementById('countdown');
+      var showBtn = document.getElementById('showMessageBtn');
+      var seconds = 5;
+      if (banner) banner.style.display = '';
+      if (countdown) countdown.textContent = seconds;
+      if (showBtn) showBtn.style.display = 'none';
+      var interval = setInterval(function () {
         seconds--;
-        countdown.textContent = seconds;
+        if (countdown) countdown.textContent = seconds;
           if (seconds <= 0) {
             clearInterval(interval);
-            banner.style.display = 'none';
-            showBtn.style.display = 'inline-block';
+            if (banner) banner.style.display = 'none';
+            if (showBtn) showBtn.style.display = 'inline-block';
           }
       }, 1000);
     }
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', function () {
       showMessageBanner();
-      document.getElementById('showMessageBtn').addEventListener('click', showMessageBanner);
+      var btn = document.getElementById('showMessageBtn');
+      if (btn && btn.addEventListener) btn.addEventListener('click', showMessageBanner);
     });
   </script>
   <script>
     // Progress tracker
     function updateProgressTracker(completed, total) {
-      const tracker = document.getElementById('progressTracker');
-      const text = document.getElementById('progressText');
-      text.textContent = `Completed: ${completed} / ${total}`;
-      if (total > 0) {
-        tracker.classList.add('show');
-      } else {
-        tracker.classList.remove('show');
+      var tracker = document.getElementById('progressTracker');
+      var text = document.getElementById('progressText');
+      if (text) text.textContent = 'Completed: ' + completed + ' / ' + total;
+      if (tracker) {
+        if (total > 0) {
+          if (tracker.classList) tracker.classList.add('show');
+        } else {
+          if (tracker.classList) tracker.classList.remove('show');
+        }
       }
     }
     window.updateProgressTracker = updateProgressTracker;
