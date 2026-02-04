@@ -7,40 +7,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FlashCardHub - Free Online Flashcards for Learning</title>
   <meta name="description" content="FlashCardHub - The 100% Free Revision Website. Create and study flashcards online for free. No login required, forever free.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Control Buttons -->
-  <button id="showMessageBtn">ℹ️ Show Info</button>
-  
-  <header>
-    <h1>FlashCardHub</h1>
-    <p>The 100% free revision website — no login, no limits, forever free</p>
-    
-    <div style="margin: 2rem 0;">
-      <button id="createBtn">✨ Create Custom Flashcards</button>
-    </div>
+  <button id="showMessageBtn" aria-hidden="false">ℹ️ Show Info</button>
 
-    <div id="messageBanner">
-      <p><strong>📚 Getting Started:</strong></p>
-      <p>Use "Create Custom Flashcards" to add questions and answers manually.</p>
-      <p style="color: #f59e0b; font-size: 0.85rem;">⚠️ Mobile: Page reload will reset your progress. Disappears in <span id="countdown" style="font-weight: bold;">5</span>s</p>
-    </div>
+  <header class="hero">
+    <div class="shell">
+      <div class="hero__top">
+        <div class="brand">
+          <span class="brand__mark">F</span>
+          <div class="brand__text">
+            <strong>FlashCardHub</strong>
+            <span>Study faster, remember longer</span>
+          </div>
+        </div>
+        <div class="hero__meta">100% free · no login · forever</div>
+      </div>
 
-    
+      <div class="hero__body">
+        <div class="hero__headline">
+          <h1>Build and study flashcards without limits</h1>
+          <p>The streamlined way to create, flip, and track your revision. Works great on mobile and desktop.</p>
+          <div class="hero__actions">
+            <button id="createBtn" class="btn primary">✨ Create custom flashcards</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="messageBanner" class="banner">
+        <div class="banner__icon">📚</div>
+        <div class="banner__content">
+          <p class="banner__title">Getting started</p>
+          <p>Use "Create custom flashcards" to add your own questions and answers.</p>
+          <p class="banner__note">⚠️ Mobile reload resets progress. Hides in <span id="countdown">5</span>s.</p>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <section id="createSection" class="hidden">
-    <h2>Create Flashcards</h2>
-    <div id="newFlashcardsContainer"></div>
-    <input type="text" id="newQuestion" placeholder="Enter your question...">
-    <input type="text" id="newAnswer" placeholder="Enter the answer...">
-    <button id="addFlashcardBtn">➕ Add Flashcard</button>
-    <button id="startCustomBtn">▶️ Start Learning</button>
-  </section>
+  <main class="page">
+    <section id="createSection" class="card hidden">
+      <div class="card__header">
+        <div>
+          <p class="eyebrow">Custom set</p>
+          <h2>Create flashcards</h2>
+        </div>
+      </div>
+      <div id="newFlashcardsContainer" class="list"></div>
+      <div class="form-grid">
+        <input type="text" id="newQuestion" placeholder="Question" aria-label="Question">
+        <input type="text" id="newAnswer" placeholder="Answer" aria-label="Answer">
+      </div>
+      <div class="card__actions">
+        <button id="addFlashcardBtn" class="btn ghost">➕ Add flashcard</button>
+        <button id="startCustomBtn" class="btn primary">▶️ Start learning</button>
+      </div>
+    </section>
 
-  <main id="flashcardContainer">
-    <!-- Flashcards will appear here -->
+    <section class="shell">
+      <div id="flashcardContainer" aria-live="polite"></div>
+    </section>
   </main>
 
   <section id="progressTracker">
@@ -48,8 +78,8 @@
   </section>
 
   <footer>
-    <div>Developed for Revision 2025 | Created by Noah Tolly</div>
-    <div style="margin-top: 0.5rem; display: flex; gap: 1rem; justify-content: center; align-items: center;">
+    <div>Developed for Revision 2025 · Created by Noah Tolly</div>
+    <div class="footer__row">
       <a href="mailto:noah.tolly@icloud.com" class="contact-btn">✉️ Contact</a>
       <span class="version">v1.8.0</span>
       <button id="adminTrigger" class="admin-btn" aria-label="Open Hacker Panel">123</button>
